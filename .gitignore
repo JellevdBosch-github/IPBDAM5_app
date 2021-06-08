@@ -230,3 +230,7 @@ selenium-debug.log
 *.ntvs*
 *.njsproj
 *.sln
+
+
+# API
+api/config/
