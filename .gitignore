@@ -234,3 +234,15 @@ selenium-debug.log
 
 # API
 api/config/
+
+
+# Frontend
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+pnpm-debug.log*
+
+# Editor directories and files
+*.sw?
