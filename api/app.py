@@ -2,6 +2,10 @@ import sys
 
 from flask import Flask, jsonify
 from flask_cors import CORS
+from routes.candlestick import module_candlestick
+from routes.currency import module_currency
+from routes.trade import module_trade
+from routes.wallet import module_wallet
 import config
 
 
@@ -9,9 +13,20 @@ app = Flask(__name__)
 CORS(app, resources={r'/*': {'origins': '*'}})
 
 
+app.register_blueprint(module_candlestick)
+app.register_blueprint(module_currency)
+app.register_blueprint(module_trade)
+app.register_blueprint(module_wallet)
+
+
 @app.route('/')
 def index():
-	return jsonify('hello flask')
+	return jsonify('/')
+
+
+@app.route('/api')
+def index():
+	return jsonify('/api')
 
 
 if __name__ == '__main__':
