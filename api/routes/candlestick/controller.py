@@ -76,10 +76,10 @@ class BrowseCandlesticks(Resource):
 	def get(timestamp):
 		return jsonify(
 			status='success',
-			endpoint='/api/candlestick/browse/<timestamp>',
+			endpoint='/api/candlestick/browse',
 			request_method='get',
-			candlesticks=[candle for candle in OHLC if int(candle['timestamp']) <= int(timestamp)]
+			candlesticks=[candle for candle in OHLC]
 		)
 
 
-api_candlestick.add_resource(BrowseCandlesticks, '/browse/<timestamp>', defaults={'timestamp': get_current_epoch_ms()})
+api_candlestick.add_resource(BrowseCandlesticks, '/browse')
