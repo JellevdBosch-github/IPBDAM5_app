@@ -1,9 +1,27 @@
 from flask import Blueprint, request
-from flask_restful import Resource, Api
+from flask_restful import Resource, Api, request
 from utils import datetime
 
 
 module_candlestick = Blueprint('candlestick', __name__, url_prefix='/api/candlestick')
+
+
+class CandlestickController(Resource):
+
+	@staticmethod
+	def get(candlestick_id):
+		return {
+			'status': 'success',
+			'endpoint': '/api/candlestick',
+			'request_method': 'get',
+			'candlestick': {
+				'candlestick_id': candlestick_id,
+				'open': 123,
+				'high': 145,
+				'low': 118,
+				'close': 140
+			}
+		}
 
 
 @module_candlestick.route('/browse', methods=['GET'])
