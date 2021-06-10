@@ -3,7 +3,6 @@
     <v-app-bar
       app
       color="primary"
-      dark
     >
       <div class="d-flex align-center">
         <v-img
@@ -37,6 +36,16 @@
       </v-btn>
     </v-app-bar>
 
+    <v-navigation-drawer
+        app
+        v-model="side_drawer"
+        class="pt-4"
+        color="primary"
+        mini-variant
+    >
+
+    </v-navigation-drawer>
+
     <v-main>
       <router-view/>
     </v-main>
@@ -49,7 +58,9 @@ export default {
   name: 'App',
 
   data: () => ({
-    //
+    props: ({
+      side_drawer: true,
+    })
   }),
 };
 </script>
