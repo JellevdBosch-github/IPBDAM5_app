@@ -37,12 +37,12 @@ def abort_not_found(candlestick_id):
 	if not any(candlestick['candlestick_id'] == candlestick_id for candlestick in OHLC):
 		abort(
 			404,
-			message=jsonify(
-				status='failed',
-				endpoint='/api/candlestick/<candlestick_id>',
-				request_method='get',
-				error_message=f'No candlestick found matching the given id ({candlestick_id})!'
-			)
+			message={
+				'status': 'failed',
+				'endpoint': '/api/candlestick/<candlestick_id>',
+				'request_method': 'get',
+				'error_message': f'No candlestick found matching the given id ({candlestick_id})!'
+			}
 		)
 
 
@@ -73,7 +73,7 @@ class BrowseCandlesticks(Resource):
 	"""
 
 	@staticmethod
-	def get(timestamp):
+	def get():
 		return jsonify(
 			status='success',
 			endpoint='/api/candlestick/browse',

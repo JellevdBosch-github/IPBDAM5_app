@@ -37,12 +37,12 @@ def abort_not_found(trade_id):
 	if not any(trade['trade_id'] == trade_id for trade in TRADES):
 		abort(
 			404,
-			message=jsonify(
-				status='failed',
-				endpoint='/api/trade/<trade_id>',
-				request_method='get',
-				error_message=f'No trade found matching the given id ({trade_id})!'
-			)
+			message={
+				'status': 'failed',
+				'endpoint': '/api/trade/<trade_id>',
+				'request_method': 'get',
+				'error_message': f'No trade found matching the given id ({trade_id})!'
+			}
 		)
 
 
