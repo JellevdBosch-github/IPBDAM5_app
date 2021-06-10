@@ -1,5 +1,5 @@
-from flask import jsonify
-from flask_restful import Resource, abort
+from flask import Blueprint, jsonify
+from flask_restful import Resource, Api, request, abort
 from utils.datetime import get_current_epoch_ms
 from . import module_trade
 from . import api_trade
@@ -65,19 +65,19 @@ class Trade(Resource):
 api_trade.add_resource(Trade, '/<trade_id>')
 
 
-class Trades(Resource):
+class BrowseTrades(Resource):
 	"""
 	Retrieve all trades
 	"""
 
 	@staticmethod
-	def get(timestamp):
+	def get():
 		return jsonify(
 			status='success',
-			endpoint='/api/trade/browse/<timestamp>',
+			endpoint='/api/trade/browse',
 			request_method='get',
-			trades=[trade for trade in TRADES if int(trade['timestamp']) <= int(timestamp)]
+			trades=[trade for trade in TRADES]
 		)
 
 
-api_trade.add_resource(Trades, '/browse/<timestamp>', defaults={'timestamp': get_current_epoch_ms()})
+api_trade.add_resource(BrowseTrades, '/browse')
