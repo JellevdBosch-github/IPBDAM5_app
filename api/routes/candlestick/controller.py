@@ -1,44 +1,85 @@
-from flask import Blueprint, request
-from flask_restful import Resource, Api, request
-from utils import datetime
+from flask import Blueprint, jsonify
+from flask_restful import Resource, Api, request, abort
+from utils.datetime import get_current_epoch_ms
 from . import module_candlestick
 from . import api_candlestick
 
 
-class CandlestickController(Resource):
+OHLC = [
+	{
+		'candlestick_id': '1',
+		'timestamp': '1623307985000',
+		'open': 123,
+		'high': 145,
+		'low': 118,
+		'close': 140
+	},
+	{
+		'candlestick_id': '2',
+		'timestamp': '1623311585000',
+		'open': 140,
+		'high': 155,
+		'low': 138,
+		'close': 150
+	},
+	{
+		'candlestick_id': '3',
+		'timestamp': '1623315185000',
+		'open': 150,
+		'high': 152,
+		'low': 141,
+		'close': 144
+	},
+]
+
+
+def abort_not_found(candlestick_id):
+	if not any(candlestick['candlestick_id'] == candlestick_id for candlestick in OHLC):
+		abort(
+			404,
+			message=jsonify(
+				status='failed',
+				endpoint='/api/candlestick/<candlestick_id>',
+				request_method='get',
+				error_message=f'No candlestick found matching the given id ({candlestick_id})!'
+			)
+		)
+
+
+class Candlestick(Resource):
+	"""
+	Returns the candlestick with the given id
+	"""
 
 	@staticmethod
 	def get(candlestick_id):
-		return {
-			'status': 'success',
-			'endpoint': '/api/candlestick',
-			'request_method': 'get',
-			'candlestick': {
-				'candlestick_id': candlestick_id,
-				'open': 123,
-				'high': 145,
-				'low': 118,
-				'close': 140
-			}
-		}
+		abort_not_found(candlestick_id)
+		# c = [candle for candle in OHLC if candle['candlestick_id'] == candlestick_id]
+		# print(c)
+		return jsonify(
+			status='success',
+			endpoint='/api/candlestick/<candlestick_id>',
+			request_method='get',
+			candlestick=[candle for candle in OHLC if candle['candlestick_id'] == candlestick_id]
+		)
 
 
-@module_candlestick.route('/browse', methods=['GET'])
-def browse_candlesticks():
-	pass
-	# response_object = {
-	# 	'status': 'Failed',
-	# 	'error': 'Invalid request header',
-	# 	'description': 'This endpoint requires a GET request'
-	# }
+api_candlestick.add_resource(Candlestick, '/<candlestick_id>')
 
 
-@module_candlestick.route('/browse/<int:timestamp>', methods=['POST'])
-def browse_candlesticks(timestamp):
-	pass
+class BrowseCandlesticks(Resource):
+	"""
+	Returns all candlesticks (optionally up to e certain point in time) as a list of objects
+	"""
+
+	@staticmethod
+	def get(timestamp):
+		return jsonify(
+			status='success',
+			endpoint='/api/candlestick/browse/<timestamp>',
+			request_method='get',
+			candlesticks=[candle for candle in OHLC if int(candle['timestamp']) <= int(timestamp)]
+		)
 
 
-@module_candlestick.route('/read/', defaults={'candlestick_id': datetime.get_current_epoch_ms()})
-@module_candlestick.route('/read/<candlestick_id>', methods=['POST'])
-def read_candlestick(candlestick_id):
-	pass
+api_candlestick.add_resource(BrowseCandlesticks, '/browse/<timestamp>', defaults={'timestamp': get_current_epoch_ms()})
