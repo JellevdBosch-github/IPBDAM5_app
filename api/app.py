@@ -1,6 +1,7 @@
 import sys
 
 from flask import Flask, jsonify
+from flask_restful import Api
 from flask_cors import CORS
 from routes.candlestick import module_candlestick
 from routes.currency import module_currency
@@ -10,6 +11,7 @@ import config
 
 
 app = Flask(__name__)
+api = Api(app)
 CORS(app, resources={r'/*': {'origins': '*'}})
 
 
