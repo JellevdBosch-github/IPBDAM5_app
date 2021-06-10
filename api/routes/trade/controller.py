@@ -1,12 +1,13 @@
 from flask import jsonify
 from flask_restful import Resource, abort
 from utils.datetime import get_current_epoch_ms
+from . import module_trade
 from . import api_trade
 
 
 TRADES = [
 	{
-		'trade_id': '1',
+		'trade_id': '1A',
 		'original': 1,
 		'original_id': None,
 		'price': 100.00,
@@ -18,14 +19,14 @@ TRADES = [
 		'taker_side': 0
 	},
 	{
-		'trade_id': '2',
+		'trade_id': '1B',
 		'original': 0,
-		'original_id': 1,
-		'price': 362.062222,
+		'original_id': '1A',
+		'price': 368.63725344,
 		'quantity': 12,
 		'eur_value': 102.00,
 		'usd_value': 124.29,
-		'doge_value': 362.062222,
+		'doge_value': 368.63725344,
 		'timestamp': '1623325159000',
 		'taker_side': 1
 	},
@@ -64,3 +65,19 @@ class Trade(Resource):
 api_trade.add_resource(Trade, '/<trade_id>')
 
 
+class Trades(Resource):
+	"""
+	Retrieve all trades
+	"""
+
+	@staticmethod
+	def get(timestamp):
+		return jsonify(
+			status='success',
+			endpoint='/api/trade/browse/<timestamp>',
+			request_method='get',
+			trades=[trade for trade in TRADES if int(trade['timestamp']) <= int(timestamp)]
+		)
+
+
+api_trade.add_resource(Trades, '/browse/<timestamp>', defaults={'timestamp': get_current_epoch_ms()})
