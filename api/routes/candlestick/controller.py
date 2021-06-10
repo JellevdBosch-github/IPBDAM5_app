@@ -1,9 +1,8 @@
 from flask import Blueprint, request
 from flask_restful import Resource, Api, request
 from utils import datetime
-
-
-module_candlestick = Blueprint('candlestick', __name__, url_prefix='/api/candlestick')
+from . import module_candlestick
+from . import api_candlestick
 
 
 class CandlestickController(Resource):
