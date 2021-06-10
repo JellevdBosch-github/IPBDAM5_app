@@ -1,5 +1,4 @@
 import sys
-
 from flask import Flask, jsonify
 from flask_cors import CORS
 from routes.candlestick import module_candlestick
@@ -25,7 +24,7 @@ def index():
 
 
 @app.route('/api')
-def index():
+def api():
 	return jsonify('/api')
 
 
