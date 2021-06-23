@@ -15,15 +15,15 @@ WALLET = [
 ]
 
 
-def abort_not_found(candlestick_id):
-	if not any(candlestick['candlestick_id'] == candlestick_id for candlestick in OHLC):
+def abort_not_found(wallet_id):
+	if not any(wallet['wallet_id'] == wallet_id for wallet in WALLET):
 		abort(
 			404,
 			message={
 				'status': 'failed',
-				'endpoint': '/api/candlestick/<candlestick_id>',
+				'endpoint': '/api/wallet/<wallet_id>',
 				'request_method': 'get',
-				'error_message': f'No candlestick found matching the given id ({candlestick_id})!'
+				'error_message': f'No wallet found matching the given id ({wallet_id})!'
 			}
 		)
 
@@ -36,12 +36,14 @@ class Wallet(Resource):
 	@staticmethod
 	def get(wallet_id):
 		abort_not_found(wallet_id)
-		return jsonify(
+		response = jsonify(
 			status='success',
 			endpoint='/api/wallet/<wallet_id>',
 			request_method='get',
 			wallet=[wallet for wallet in WALLET if wallet['wallet_id'] == wallet_id]
 		)
+		response.headers.add('Access-Control-Allow-Origin', '*')
+		return response
 
 
 api_wallet.add_resource(Wallet, '/<wallet_id>')
