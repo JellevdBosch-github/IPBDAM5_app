@@ -8,7 +8,7 @@ from . import api_candlestick
 OHLC = [
 	{
 		'candlestick_id': '1',
-		'timestamp': '1623307985000',
+		'timestamp': '1623300785000',
 		'open': 123,
 		'high': 145,
 		'low': 118,
@@ -16,7 +16,7 @@ OHLC = [
 	},
 	{
 		'candlestick_id': '2',
-		'timestamp': '1623311585000',
+		'timestamp': '1623304385000',
 		'open': 140,
 		'high': 155,
 		'low': 138,
@@ -24,7 +24,31 @@ OHLC = [
 	},
 	{
 		'candlestick_id': '3',
+		'timestamp': '1623307985000',
+		'open': 150,
+		'high': 152,
+		'low': 141,
+		'close': 144
+	},
+{
+		'candlestick_id': '4',
+		'timestamp': '1623311585000',
+		'open': 144,
+		'high': 145,
+		'low': 118,
+		'close': 140
+	},
+	{
+		'candlestick_id': '5',
 		'timestamp': '1623315185000',
+		'open': 140,
+		'high': 155,
+		'low': 138,
+		'close': 150
+	},
+	{
+		'candlestick_id': '6',
+		'timestamp': '1623318785000',
 		'open': 150,
 		'high': 152,
 		'low': 141,
