@@ -5,6 +5,7 @@ from routes.candlestick import module_candlestick
 from routes.currency import module_currency
 from routes.trade import module_trade
 from routes.wallet import module_wallet
+from routes.pattern import module_pattern
 import config
 
 
@@ -16,6 +17,7 @@ app.register_blueprint(module_candlestick)
 app.register_blueprint(module_currency)
 app.register_blueprint(module_trade)
 app.register_blueprint(module_wallet)
+app.register_blueprint(module_pattern)
 
 
 @app.route('/')
