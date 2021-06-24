@@ -45,3 +45,23 @@ class Wallet(Resource):
 
 
 api_wallet.add_resource(Wallet, '/<wallet_id>')
+
+
+class WalletTime(Resource):
+	"""
+	Returns the candlestick with the given id
+	"""
+
+	@staticmethod
+	def get(wallet_id):
+		abort_not_found(wallet_id)
+		return jsonify(
+			status='success',
+			endpoint='/api/wallet/<wallet_id>/<timestamp>',
+			request_method='get',
+			# TODO: return wallet value at certain point in time
+			wallet=[wallet for wallet in WALLET if wallet['wallet_id'] == wallet_id]
+		)
+
+
+api_wallet.add_resource(WalletTime, '/<wallet_id>/<timestamp>')
