@@ -5,6 +5,40 @@ from . import module_pattern
 from . import api_pattern
 
 
+PATTERNS = [
+	{
+		'pattern': 'bull1',
+		'occurences': 3,
+		'profit': 5.03
+	},
+	{
+		'pattern': 'bull2',
+		'occurences': 13,
+		'profit': 3.43
+	},
+	{
+		'pattern': 'bull3',
+		'occurences': 41,
+		'profit': -2.07
+	},
+	{
+		'pattern': 'bear1',
+		'occurences': 70,
+		'profit': -5.67
+	},
+	{
+		'pattern': 'bear2',
+		'occurences': 3,
+		'profit': 10.03
+	},
+	{
+		'pattern': 'bear3',
+		'occurences': 11,
+		'profit': 4.03
+	},
+]
+
+
 TRADES = [
 	{
 		'trade_id': '1A',
@@ -36,6 +70,24 @@ TRADES = [
 ]
 
 
+class BrowsePattern(Resource):
+	"""
+	Returns the amount of profit per pattern
+	"""
+
+	@staticmethod
+	def get():
+		return jsonify(
+			status='success',
+			endpoint='/api/pattern/browse',
+			request_method='get',
+			patterns=[pattern for pattern in PATTERNS]
+		)
+
+
+api_pattern.add_resource(BrowsePattern, '/browse')
+
+
 class CountPattern(Resource):
 	"""
 	Returns the amount of different patterns recognized
@@ -43,12 +95,11 @@ class CountPattern(Resource):
 
 	@staticmethod
 	def get():
-		count = 8
 		return jsonify(
 			status='success',
 			endpoint='/api/pattern/count',
 			request_method='get',
-			count=count
+			count=len(PATTERNS)
 		)
 
 
