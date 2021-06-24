@@ -6,7 +6,7 @@ from . import api_candlestick
 
 
 OHLC = [
-{
+	{
 		'candlestick_id': '7',
 		'timestamp': '1624539599999',
 		'open': 0.20326000,

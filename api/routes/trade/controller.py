@@ -32,7 +32,7 @@ TRADES = [
 		'timestamp': '1623325159000',
 		'taker_side': 1,
 		'wallet_value': 9998
-	},
+	}
 ]
 
 
