@@ -11,8 +11,13 @@ export default new Vuetify({
                 secondary: '#bb8961',
                 accent: '#333333',
                 accent1: '#131313',
+                background: '#121212',
                 profit: '#388ee3',
-                loss: '#ce3e47'
+                loss: '#ce3e47',
+                grid: '#373737',
+                icon: '#7c7c7c',
+                chart1: '#6db1e3',
+                chart2: '#225378',
             }
         },
         dark: true,
