@@ -17,7 +17,8 @@ TRADES = [
 		'doge_value': 362.062222,
 		'timestamp': '1623323973068',
 		'pattern': 'bull1',
-		'taker_side': 0
+		'taker_side': 0,
+		'wallet_value': 10000
 	},
 	{
 		'trade_id': '1B',
@@ -29,7 +30,8 @@ TRADES = [
 		'usd_value': 124.29,
 		'doge_value': 368.63725344,
 		'timestamp': '1623325159000',
-		'taker_side': 1
+		'taker_side': 1,
+		'wallet_value': 9998
 	},
 ]
 
