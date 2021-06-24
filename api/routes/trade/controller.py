@@ -16,6 +16,7 @@ TRADES = [
 		'usd_value': 121.85,
 		'doge_value': 362.062222,
 		'timestamp': '1623323973068',
+		'pattern': 'bull1',
 		'taker_side': 0
 	},
 	{
@@ -81,3 +82,26 @@ class BrowseTrades(Resource):
 
 
 api_trade.add_resource(BrowseTrades, '/browse')
+
+
+class CountTrades(Resource):
+	"""
+	Retrieve all trades
+	"""
+
+	@staticmethod
+	def get():
+		amount_long = sum(trade['taker_side'] == 1 for trade in TRADES)
+		amount_short = sum(trade['taker_side'] == 0 for trade in TRADES)
+		return jsonify(
+			status='success',
+			endpoint='/api/trade/count',
+			request_method='get',
+			count=len(TRADES),
+			amount_long=amount_long,
+			amount_short=amount_short
+		)
+
+
+api_trade.add_resource(CountTrades, '/count')
+

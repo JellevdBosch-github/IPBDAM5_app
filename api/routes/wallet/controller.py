@@ -36,14 +36,12 @@ class Wallet(Resource):
 	@staticmethod
 	def get(wallet_id):
 		abort_not_found(wallet_id)
-		response = jsonify(
+		return jsonify(
 			status='success',
 			endpoint='/api/wallet/<wallet_id>',
 			request_method='get',
 			wallet=[wallet for wallet in WALLET if wallet['wallet_id'] == wallet_id]
 		)
-		response.headers.add('Access-Control-Allow-Origin', '*')
-		return response
 
 
 api_wallet.add_resource(Wallet, '/<wallet_id>')

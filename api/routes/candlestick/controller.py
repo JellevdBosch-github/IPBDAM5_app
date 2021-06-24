@@ -48,7 +48,7 @@ OHLC = [
 	},
 	{
 		'candlestick_id': '6',
-		'timestamp': '1623318785000',
+		'timestamp': '1623523973068',
 		'open': 150,
 		'high': 152,
 		'low': 141,
@@ -107,3 +107,43 @@ class BrowseCandlesticks(Resource):
 
 
 api_candlestick.add_resource(BrowseCandlesticks, '/browse')
+
+
+class BrowseCandlesticksEndtime(Resource):
+	"""
+	Returns all candlesticks (optionally up to e certain point in time) as a list of objects
+	"""
+
+	@staticmethod
+	def get(timestamp):
+		candles = []
+		for candle in OHLC:
+			if int(candle['timestamp']) < int(timestamp):
+				candles.append(candle)
+		return jsonify(
+			status='success',
+			endpoint='/api/candlestick/browse/:timestamp',
+			request_method='get',
+			candlesticks=candles
+		)
+
+
+api_candlestick.add_resource(BrowseCandlesticksEndtime, '/browse/<timestamp>')
+
+
+class CountCandlesticks(Resource):
+	"""
+	Returns the amount of candlesticks as a int
+	"""
+
+	@staticmethod
+	def get():
+		return jsonify(
+			status='success',
+			endpoint='/api/candlestick/count',
+			request_method='get',
+			count=len(OHLC)
+		)
+
+
+api_candlestick.add_resource(CountCandlesticks, '/count')

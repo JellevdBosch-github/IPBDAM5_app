@@ -9,7 +9,7 @@ import config
 
 
 app = Flask(__name__)
-CORS(app, resources={r'/*': {'origins': '*'}})
+CORS(app, resources={r'*': {'origins': '*'}})
 
 
 app.register_blueprint(module_candlestick)
