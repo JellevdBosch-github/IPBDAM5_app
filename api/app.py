@@ -32,7 +32,6 @@ def api():
 
 if __name__ == '__main__':
 	env = sys.argv[1] if len(sys.argv) >= 2 else 'dev'
-
 	if env == 'dev':
 		print('Dev Config')
 		app.config.from_object(config.DevConfig)
@@ -44,5 +43,5 @@ if __name__ == '__main__':
 		app.config.from_object(config.ProdConfig)
 	else:
 		raise ValueError('Invalid environment name')
-
 	app.run()
+
