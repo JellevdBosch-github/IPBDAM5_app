@@ -17,5 +17,4 @@ def get(wallet_id=1):
 				'doge_value': r[3],
 			}
 		)
-	print(result)
 	return result
