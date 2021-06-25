@@ -24,7 +24,7 @@ const routes = [
     component: Trade
   },
   {
-    path: '/trade/:id/:timestamp',
+    path: '/trade/:id',
     name: 'Chart',
     component: Chart
   },
